@@ -1,113 +1,111 @@
-﻿using System; //Programa en general
-public class MaxHeap
+﻿using System;
+
+namespace MundialWPF
 {
-    private int[] heap;
-    private int cantidad;
-    public MaxHeap(int capacidadInicial = 10)
+    public class MaxHeap
     {
-        heap = new int[capacidadInicial];
-        cantidad = 0;
-    }
-
-    private void Redimensionar()
-    {
-        int[] nuevoHeap = new int[heap.Length * 2];
-        for (int i = 0; i < cantidad; i++)
+        private Jugador[] heap;
+        private int cantidad;
+        private string criterio; 
+        public MaxHeap(string criterio, int capacidadInicial = 10)
         {
-            nuevoHeap[i] = heap[i];
+            heap = new Jugador[capacidadInicial];
+            cantidad = 0;
+            this.criterio = criterio;
         }
-        heap = nuevoHeap;
-    }
 
-    public void Insertar(int valor)
-    {
-        if (cantidad == heap.Length)
+        private void Redimensionar()
         {
-            Redimensionar();
-        }
-        heap[cantidad] = valor;
-        HeapifyUp(cantidad);
-        cantidad++;
-    }
-
-    private void HeapifyUp(int indice)
-    {
-        while (indice > 0)
-        {
-            int padre = (indice - 1) / 2;
-            if (heap[indice] > heap[padre])
+            Jugador[] nuevoHeap = new Jugador[heap.Length * 2];
+            for (int i = 0; i < cantidad; i++)
             {
-                int temp = heap[indice];
-                heap[indice] = heap[padre];
+                nuevoHeap[i] = heap[i];
+            }
+            heap = nuevoHeap;
+        }
+
+        public void Insertar(Jugador jugador)
+        {
+            if (cantidad == heap.Length)
+            {
+                Redimensionar();
+            }
+            heap[cantidad] = jugador;
+            HeapifyUp(cantidad);
+            cantidad++;
+        }
+
+        private void HeapifyUp(int index)
+        {
+            int padre = (index - 1) / 2;
+            while (index > 0 && Comparar(heap[index], heap[padre]) > 0)
+            {
+                Jugador temp = heap[index];
+                heap[index] = heap[padre];
                 heap[padre] = temp;
-                indice = padre;
-            }
-            else
-            {
-                break;
+
+                index = padre;
+                padre = (index - 1) / 2;
             }
         }
-    }
 
-    public int? ObtenerMaximo()
-    {
-        if (cantidad == 0) return null;
-        return heap[0];
-    }
-
-    public int? EliminarMaximo()
-    {
-        if (cantidad == 0) return null;
-        int maximo = heap[0];
-        heap[0] = heap[cantidad - 1];
-        cantidad--;
-        if (cantidad > 0)
+        private int Comparar(Jugador j1, Jugador j2)
         {
+            if (criterio == "Goles")
+            {
+                return j1.Goles.CompareTo(j2.Goles);
+            }
+            else if (criterio == "Asistencias")
+            {
+                return j1.Asistencias.CompareTo(j2.Asistencias);
+            }
+            return 0;
+        }
+
+        public Jugador[] ObtenerTop(int topN)
+        {
+            int limite = Math.Min(topN, cantidad);
+            Jugador[] top = new Jugador[limite];
+            Jugador[] copiaHeap = new Jugador[cantidad];
+            Array.Copy(heap, copiaHeap, cantidad);
+            int cantidadOriginal = cantidad;
+
+            for (int i = 0; i < limite; i++)
+            {
+                top[i] = ExtraerMax();
+            }
+            heap = copiaHeap;
+            cantidad = cantidadOriginal;
+            return top;
+        }
+
+        public Jugador ExtraerMax()
+        {
+            if (cantidad == 0) return null;
+            Jugador max = heap[0];
+            heap[0] = heap[cantidad - 1];
+            heap[cantidad - 1] = null;
+            cantidad--;
             HeapifyDown(0);
+            return max;
         }
-        return maximo;
-    }
 
-    private void HeapifyDown(int indice)
-    {
-        while (true)
+        private void HeapifyDown(int index)
         {
-            int mayor = indice;
-            int hijoIzquierdo = 2 * indice + 1;
-            int hijoDerecho = 2 * indice + 2;
-            if (hijoIzquierdo < cantidad && heap[hijoIzquierdo] > heap[mayor])
+            int mayor = index;
+            int izquierdo = 2 * index + 1;
+            int derecho = 2 * index + 2;
+            if (izquierdo < cantidad && Comparar(heap[izquierdo], heap[mayor]) > 0)
+                mayor = izquierdo;
+            if (derecho < cantidad && Comparar(heap[derecho], heap[mayor]) > 0)
+                mayor = derecho;
+            if (mayor != index)
             {
-                mayor = hijoIzquierdo;
+                Jugador temp = heap[index];
+                heap[index] = heap[mayor];
+                heap[mayor] = temp;
+                HeapifyDown(mayor);
             }
-            if (hijoDerecho < cantidad && heap[hijoDerecho] > heap[mayor])
-            {
-                mayor = hijoDerecho;
-            }
-            if (mayor == indice) break;
-            int temp = heap[indice];
-            heap[indice] = heap[mayor];
-            heap[mayor] = temp;
-            indice = mayor;
         }
-    }
-
-    public bool Buscar(int valor)
-    {
-        for (int i = 0; i < cantidad; i++)
-        {
-            if (heap[i] == valor) return true;
-        }
-        return false;
-    }
-
-    public void Mostrar()
-    {
-        Console.Write("[");
-        for (int i = 0; i < cantidad; i++)
-        {
-            Console.Write(heap[i] + (i < cantidad - 1 ? ", " : ""));
-        }
-        Console.WriteLine("]");
     }
 }
-
