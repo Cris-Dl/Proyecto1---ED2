@@ -1,7 +1,4 @@
 ﻿using System; //Programa en general
-using System.Collections.Generic; //Se llama para la interfaz grafica
-using System.Windows; //Se llama para la interfaz grafica
-
 
 public class NodoBPlus
 {
@@ -430,89 +427,5 @@ public class Jugador
         Asistencias = asistencias;
         TarjetasRecibidas = tarjetasRecibidas;
         PartidosJugados = partidosJugados;
-    }
-}
-
-< Window x: Class = "Proyecto1_ED2.MainWindow"
-        xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns: x = "http://schemas.microsoft.com/winfx/2006/xaml"
-        Title = "Gestión del Mundial - Estructura de Datos II" Height = "600" Width = "900" WindowStartupLocation = "CenterScreen" >
-
-    < Grid >
-        < Grid.ColumnDefinitions >
-            < !--Columna del menú lateral -->
-            <ColumnDefinition Width="220"/>
-            <!-- Columna del contenido principal -->
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        < !--Columna del menú lateral -->
-        <Border Grid.Column="0" Background="#2C3E50" Padding="15">
-            <StackPanel>
-                <TextBlock Text="MENÚ MUNDIAL" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30"/>
-                <Button x:Name = "btnCargarArchivo" Content = "Cargar Datos (CSV)" Height = "40" Margin = "0,0,0,10" Background = "#34495E" Foreground = "White" Click = "btnCargarArchivo_Click" />
-                < Button x: Name = "btnRegistrar" Content = "Registrar Jugador" Height = "40" Margin = "0,0,0,10" Background = "#34495E" Foreground = "White" Click = "btnRegistrar_Click" />
-                < Button x: Name = "btnBuscar" Content = "Buscar Jugador" Height = "40" Margin = "0,0,0,10" Background = "#34495E" Foreground = "White" Click = "btnBuscar_Click" />
-                < TextBlock Text = "REPORTES" Foreground = "#BDC3C7" FontSize = "14" FontWeight = "SemiBold" Margin = "0,20,0,10" />
-                < Button x: Name = "btnTopGoles" Content = "Top 5 Goleadores" Height = "40" Margin = "0,0,0,10" Background = "#E67E22" Foreground = "White" Click = "btnTopGoles_Click" />
-                < Button x: Name = "btnTopAsistencias" Content = "Top 5 Asistencias" Height = "40" Margin = "0,0,0,10" Background = "#E67E22" Foreground = "White" Click = "btnTopAsistencias_Click" />
-                < Button x: Name = "btnMostrarTodos" Content = "Mostrar Todos" Height = "40" Margin = "0,0,0,10" Background = "#2980B9" Foreground = "White" Click = "btnMostrarTodos_Click" />
-            </ StackPanel >
-        </ Border >
-
-        < !--Área de Contenido Central -->
-        <Grid Grid.Column="1" Background="#ECF0F1" Padding="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            
-            <TextBlock x:Name = "txtTituloSeccion" Grid.Row = "0" Text = "Tabla General de Jugadores" FontSize = "24" FontWeight = "Bold" Foreground = "#2C3E50" Margin = "0,0,0,15" />
-
-
-            < !--Tabla para mostrar los datos -->
-            <DataGrid x:Name = "dgJugadores" Grid.Row = "1" AutoGenerateColumns = "True" IsReadOnly = "True" HeadersVisibility = "Column" Background = "White" RowHeight = "30" FontSize = "14" />
-        </ Grid >
-    </ Grid >
-</ Window >
-
-namespace Proyecto1_ED2
-{
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        private void btnCargarArchivo_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Aquí integraremos la lectura del archivo CSV.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void btnRegistrar_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Aquí abriremos una ventana o formulario para insertar un jugador manualmente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void btnBuscar_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Aquí implementaremos la búsqueda en el Árbol B+.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void btnTopGoles_Click(object sender, RoutedEventArgs e)
-        {
-            txtTituloSeccion.Text = "Top 5 Goleadores (Max Heap)";
-        }
-
-        private void btnTopAsistencias_Click(object sender, RoutedEventArgs e)
-        {
-            txtTituloSeccion.Text = "Top 5 Asistencias (Max Heap)";
-        }
-
-        private void btnMostrarTodos_Click(object sender, RoutedEventArgs e)
-        {
-            txtTituloSeccion.Text = "Tabla General de Jugadores";
-        }
     }
 }
