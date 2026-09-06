@@ -251,5 +251,56 @@ public class MinHeap
             heap.RemoveAt(0);
             return valor;
         }
+        int minimo = heap[0]; 
+        int ultimo = heap[heap.Count - 1];
+        heap.RemoveAt(heap.Count - 1); 
+        heap[0] = ultimo; 
+        HeapifyDown(0); 
+        return minimo;
+    }
+
+    private void HeapifyDown(int indice)
+    {
+        int cantidad = heap.Count;
+        while(true)
+        {
+            int menor = indice;
+            int hijoIzquierdo = 2 * indice + 1;
+            int hijoDerecho = 2 * indice + 2;
+            if (hijoIzquierdo < cantidad && heap[hijoIzquierdo] < heap[menor])
+            {
+                menor = hijoIzquierdo;
+            }
+
+            if (hijoDerecho < cantidad && heap[hijoDerecho] < heap[menor])
+            {
+                menor = hijoDerecho;
+            }
+            if (menor == indice) break;
+            int temp = heap[indice];
+            heap[indice] = heap[menor];
+            heap[menor] = temp;
+            indice = menor;
+        }
+    }
+
+    public bool Buscar(int valor)
+    {
+        return heap.Contains(valor);
+    }
+
+    public void Mostrar()
+    {
+        Console.WriteLine("[" + string.Join(", ", heap) + "]");
+    }
+}
+
+public class MaxHeap
+{
+    private List<int> heap;
+
+    public MaxHeap()
+    {
+        heap = new List<int>();
     }
 }
