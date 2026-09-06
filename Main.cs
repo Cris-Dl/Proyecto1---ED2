@@ -168,53 +168,35 @@ public class ArbolBPlus
     }
 }
 
-public class Program
-{
-    public static void Main()
-    {
-        ArbolBPlus arbol = new ArbolBPlus(orden: 4);
-        int[] codigos = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
-
-        foreach (int codigo in codigos)
-        {
-            arbol.Insertar(codigo);
-        }
-        Console.WriteLine("ESTRUCTURA DEL ÁRBOL");
-        arbol.Mostrar();
-        int codigoBuscado = 70;
-        if (arbol.Buscar(codigoBuscado))
-        {
-            Console.WriteLine($"\nEl código {codigoBuscado} fue encontrado.");
-        }
-        else
-        {
-            Console.WriteLine($"\nEl código {codigoBuscado} no existe.");
-        }
-        codigoBuscado = 55;
-        if (arbol.Buscar(codigoBuscado))
-        {
-            Console.WriteLine($"El código {codigoBuscado} fue encontrado.");
-        }
-        else
-        {
-            Console.WriteLine($"El código {codigoBuscado} no existe.");
-        }
-    }
-}
-
 public class MinHeap
 {
-    private List<int> heap;
-    public MinHeap()
+    private int[] heap;     
+    private int cantidad;   
+    public MinHeap(int capacidadInicial = 10)
     {
-        heap = new List<int>();
+        heap = new int[capacidadInicial];
+        cantidad = 0;
     }
 
-    public void InsertarMin(int valor)
+    private void Redimensionar()
     {
-        heap.Add(valor);
-        int indice = heap.Count - 1;
-        HeapifyUp(indice);
+        int[] nuevoHeap = new int[heap.Length * 2];
+        for (int i = 0; i < cantidad; i++)
+        {
+            nuevoHeap[i] = heap[i];
+        }
+        heap = nuevoHeap;
+    }
+
+    public void Insertar(int valor)
+    {
+        if (cantidad == heap.Length)
+        {
+            Redimensionar(); 
+        }
+        heap[cantidad] = valor; 
+        HeapifyUp(cantidad);    
+        cantidad++;             
     }
 
     private void HeapifyUp(int indice)
@@ -238,31 +220,26 @@ public class MinHeap
 
     public int? ObtenerMinimo()
     {
-        if (heap.Count == 0) return null;
+        if (cantidad == 0) return null;
         return heap[0];
     }
 
     public int? EliminarMinimo()
     {
-        if (heap.Count == 0) return null;
-        if (heap.Count == 1)
+        if (cantidad == 0) return null;
+        int minimo = heap[0];
+        heap[0] = heap[cantidad - 1];
+        cantidad--;
+        if (cantidad > 0)
         {
-            int valor = heap[0];
-            heap.RemoveAt(0);
-            return valor;
+            HeapifyDown(0);
         }
-        int minimo = heap[0]; 
-        int ultimo = heap[heap.Count - 1];
-        heap.RemoveAt(heap.Count - 1); 
-        heap[0] = ultimo; 
-        HeapifyDown(0); 
         return minimo;
     }
 
     private void HeapifyDown(int indice)
     {
-        int cantidad = heap.Count;
-        while(true)
+        while (true)
         {
             int menor = indice;
             int hijoIzquierdo = 2 * indice + 1;
@@ -271,7 +248,6 @@ public class MinHeap
             {
                 menor = hijoIzquierdo;
             }
-
             if (hijoDerecho < cantidad && heap[hijoDerecho] < heap[menor])
             {
                 menor = hijoDerecho;
@@ -286,21 +262,132 @@ public class MinHeap
 
     public bool Buscar(int valor)
     {
-        return heap.Contains(valor);
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (heap[i] == valor) return true;
+        }
+        return false;
     }
 
     public void Mostrar()
     {
-        Console.WriteLine("[" + string.Join(", ", heap) + "]");
+        Console.Write("[");
+        for (int i = 0; i < cantidad; i++)
+        {
+            Console.Write(heap[i] + (i < cantidad - 1 ? ", " : ""));
+        }
+        Console.WriteLine("]");
     }
 }
 
 public class MaxHeap
 {
-    private List<int> heap;
-
-    public MaxHeap()
+    private int[] heap;
+    private int cantidad;
+    public MaxHeap(int capacidadInicial = 10)
     {
-        heap = new List<int>();
+        heap = new int[capacidadInicial];
+        cantidad = 0;
+    }
+
+    private void Redimensionar()
+    {
+        int[] nuevoHeap = new int[heap.Length * 2];
+        for (int i = 0; i < cantidad; i++)
+        {
+            nuevoHeap[i] = heap[i];
+        }
+        heap = nuevoHeap;
+    }
+
+    public void Insertar(int valor)
+    {
+        if (cantidad == heap.Length)
+        {
+            Redimensionar();
+        }
+        heap[cantidad] = valor;
+        HeapifyUp(cantidad);
+        cantidad++;
+    }
+
+    private void HeapifyUp(int indice)
+    {
+        while (indice > 0)
+        {
+            int padre = (indice - 1) / 2;
+            if (heap[indice] > heap[padre]) 
+            {
+                int temp = heap[indice];
+                heap[indice] = heap[padre];
+                heap[padre] = temp;
+                indice = padre;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    public int? ObtenerMaximo()
+    {
+        if (cantidad == 0) return null;
+        return heap[0];
+    }
+
+    public int? EliminarMaximo()
+    {
+        if (cantidad == 0) return null;
+        int maximo = heap[0];
+        heap[0] = heap[cantidad - 1];
+        cantidad--;
+        if (cantidad > 0)
+        {
+            HeapifyDown(0);
+        }
+        return maximo;
+    }
+
+    private void HeapifyDown(int indice)
+    {
+        while (true)
+        {
+            int mayor = indice;
+            int hijoIzquierdo = 2 * indice + 1;
+            int hijoDerecho = 2 * indice + 2;
+            if (hijoIzquierdo < cantidad && heap[hijoIzquierdo] > heap[mayor])
+            {
+                mayor = hijoIzquierdo;
+            }
+            if (hijoDerecho < cantidad && heap[hijoDerecho] > heap[mayor])
+            {
+                mayor = hijoDerecho;
+            }
+            if (mayor == indice) break;
+            int temp = heap[indice];
+            heap[indice] = heap[mayor];
+            heap[mayor] = temp;
+            indice = mayor;
+        }
+    }
+
+    public bool Buscar(int valor)
+    {
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (heap[i] == valor) return true;
+        }
+        return false;
+    }
+
+    public void Mostrar()
+    {
+        Console.Write("[");
+        for (int i = 0; i < cantidad; i++)
+        {
+            Console.Write(heap[i] + (i < cantidad - 1 ? ", " : ""));
+        }
+        Console.WriteLine("]");
     }
 }
