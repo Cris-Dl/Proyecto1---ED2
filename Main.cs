@@ -201,3 +201,55 @@ public class Program
         }
     }
 }
+
+public class MinHeap
+{
+    private List<int> heap;
+    public MinHeap()
+    {
+        heap = new List<int>();
+    }
+
+    public void InsertarMin(int valor)
+    {
+        heap.Add(valor);
+        int indice = heap.Count - 1;
+        HeapifyUp(indice);
+    }
+
+    private void HeapifyUp(int indice)
+    {
+        while (indice > 0)
+        {
+            int padre = (indice - 1) / 2;
+            if (heap[indice] < heap[padre])
+            {
+                int temp = heap[indice];
+                heap[indice] = heap[padre];
+                heap[padre] = temp;
+                indice = padre;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    public int? ObtenerMinimo()
+    {
+        if (heap.Count == 0) return null;
+        return heap[0];
+    }
+
+    public int? EliminarMinimo()
+    {
+        if (heap.Count == 0) return null;
+        if (heap.Count == 1)
+        {
+            int valor = heap[0];
+            heap.RemoveAt(0);
+            return valor;
+        }
+    }
+}
