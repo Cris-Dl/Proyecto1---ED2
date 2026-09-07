@@ -1,0 +1,29 @@
+﻿<Window x:Class="MundialWPF.EditarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Editar Estadísticas" Height="455" Width="300" WindowStartupLocation="CenterOwner">
+
+    <Border Padding="20" Background="#ECF0F1">
+        <StackPanel>
+            <TextBlock x:Name="lblNombre" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" TextAlignment="Center"/>
+
+            <TextBlock Text="Goles:" FontWeight="SemiBold" Margin="0,5,0,0"/>
+            <TextBox x:Name="txtGoles" Height="25" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Asistencias:" FontWeight="SemiBold"/>
+            <TextBox x:Name="txtAsistencias" Height="25" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Tarjetas Recibidas:" FontWeight="SemiBold"/>
+            <TextBox x:Name="txtTarjetas" Height="25" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Minutos Jugados:" FontWeight="SemiBold"/>
+            <TextBox x:Name="txtMinutos" Height="25" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Partidos Jugados:" FontWeight="SemiBold"/>
+            <TextBox x:Name="txtPartidos" Height="25" Margin="0,0,0,20"/>
+
+            <Button Content="Guardar Cambios" Height="35" Background="#27AE60" Foreground="White" Click="btnGuardar_Click"/>
+        </StackPanel>
+    </Border>
+
+</Window>

@@ -209,5 +209,77 @@ namespace Proyecto1_ED2
                 MessageBox.Show("No se encontró al jugador.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreBuscado = txtBuscar.Text.Trim();
+            if (string.IsNullOrEmpty(nombreBuscado))
+            {
+                MessageBox.Show("Escribe el nombre del jugador que deseas editar en la caja de búsqueda.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            Jugador jugador = arbolJugadores.Buscar(nombreBuscado);
+            if (jugador != null)
+            {
+                topGoleadores.Eliminar(nombreBuscado);
+                topAsistencias.Eliminar(nombreBuscado);
+                topMenosTarjetas.Eliminar(nombreBuscado);
+                EditarWindow ventanaEditar = new EditarWindow(jugador);
+                ventanaEditar.Owner = this;
+                if (ventanaEditar.ShowDialog() == true)
+                {
+                    MessageBox.Show($"Estadísticas de {jugador.Nombre} actualizadas.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                topGoleadores.Insertar(jugador);
+                topAsistencias.Insertar(jugador);
+                topMenosTarjetas.Insertar(jugador);
+                dgJugadores.ItemsSource = arbolJugadores.ObtenerTodos();
+                dgJugadores.Items.Refresh();
+                txtBuscar.Clear();
+                ResaltarColumna("");
+            }
+            else
+            {
+                MessageBox.Show($"No se encontró al jugador '{nombreBuscado}'.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnGuardarArchivo_Click(object sender, RoutedEventArgs e)
+        {
+            Jugador[] todosLosJugadores = arbolJugadores.ObtenerTodos();
+            if (todosLosJugadores == null || todosLosJugadores.Length == 0)
+            {
+                MessageBox.Show("No hay datos para guardar. El sistema está vacío.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Archivo CSV (*.csv)|*.csv";
+            saveFileDialog.Title = "Guardar datos de jugadores";
+            saveFileDialog.FileName = "Jugadores_Mundial_Actualizado.csv"; 
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
+                    {
+                        writer.WriteLine("Nombre,Seleccion,Posicion,MinutosJugados,Goles,Asistencias,TarjetasRecibidas,PartidosJugados");
+                        for (int i = 0; i < todosLosJugadores.Length; i++)
+                        {
+                            Jugador j = todosLosJugadores[i];
+                            if (j != null)
+                            {
+                                string linea = $"{j.Nombre},{j.Seleccion},{j.Posicion},{j.MinutosJugados},{j.Goles},{j.Asistencias},{j.TarjetasRecibidas},{j.PartidosJugados}";
+                                writer.WriteLine(linea);
+                            }
+                        }
+                    }
+                    MessageBox.Show("¡Los datos se han guardado exitosamente en tu computadora!", "Exportación completada", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el archivo.\nDetalle: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }

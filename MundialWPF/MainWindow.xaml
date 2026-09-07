@@ -18,11 +18,13 @@
 
                 <Button x:Name="btnCargarArchivo" Content="Cargar Datos (CSV)" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnCargarArchivo_Click"/>
                 <Button x:Name="btnRegistrar" Content="Registrar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnRegistrar_Click"/>
-
+                <Button x:Name="btnGuardarArchivo" Content="Exportar Datos (CSV)" Height="40" Margin="0,0,0,10" Background="#8E44AD" Foreground="White" Click="btnGuardarArchivo_Click"/>
+                
                 <TextBlock Text="Ingrese el nombre del jugador:" Foreground="#BDC3C7" FontSize="12" Margin="0,0,0,5"/>
                 <TextBox x:Name="txtBuscar" Height="30" Margin="0,0,0,10" Padding="5" FontSize="14"/>
                 <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>
                 <Button x:Name="btnEliminar" Content="Eliminar Jugador" Height="35" Margin="0,10,0,20" Background="#C0392B" Foreground="White" Click="btnEliminar_Click"/>
+                <Button x:Name="btnEditar" Content="Editar Estadísticas" Height="35" Margin="0,0,0,20" Background="#F39C12" Foreground="White" Click="btnEditar_Click"/>
                 
                 <TextBlock Text="REPORTES" Foreground="#BDC3C7" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,10" />
 
