@@ -5,9 +5,9 @@ namespace MundialWPF
     public class NodoBPlus
     {
         public string[] Claves;
-        public Jugador[] Valores;
-        public NodoBPlus[] Hijos;
-        public NodoBPlus Siguiente;
+        public Jugador[]? Valores;
+        public NodoBPlus[]? Hijos;
+        public NodoBPlus? Siguiente;
         public int Cantidad;
         public bool EsHoja;
 

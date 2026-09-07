@@ -5,9 +5,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <!-- Columna del menú lateral -->
             <ColumnDefinition Width="220"/>
-            <!-- Columna del contenido principal -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -18,14 +16,16 @@
 
                 <Button x:Name="btnCargarArchivo" Content="Cargar Datos (CSV)" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnCargarArchivo_Click"/>
                 <Button x:Name="btnRegistrar" Content="Registrar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnRegistrar_Click"/>
+
                 <TextBlock Text="Buscar por nombre:" Foreground="#BDC3C7" FontSize="12" Margin="0,0,0,5"/>
                 <TextBox x:Name="txtBuscar" Height="30" Margin="0,0,0,10" Padding="5" FontSize="14"/>
-                <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>    
-                
+                <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>
+
                 <TextBlock Text="REPORTES" Foreground="#BDC3C7" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,10" />
 
                 <Button x:Name="btnTopGoles" Content="Top 5 Goleadores" Height="40" Margin="0,0,0,10" Background="#E67E22" Foreground="White" Click="btnTopGoles_Click"/>
                 <Button x:Name="btnTopAsistencias" Content="Top 5 Asistencias" Height="40" Margin="0,0,0,10" Background="#E67E22" Foreground="White" Click="btnTopAsistencias_Click"/>
+                <Button x:Name="btnMenosTarjetas" Content="Top 5 Menos Tarjetas" Height="40" Margin="0,0,0,10" Background="#27AE60" Foreground="White" Click="btnMenosTarjetas_Click"/>
                 <Button x:Name="btnMostrarTodos" Content="Mostrar Todos" Height="40" Margin="0,0,0,10" Background="#2980B9" Foreground="White" Click="btnMostrarTodos_Click"/>
             </StackPanel>
         </Border>
@@ -33,16 +33,9 @@
         <!-- Columna 1: Contenido principal (Tabla) -->
         <Border Grid.Column="1" Background="#ECF0F1" Padding="20">
             <DataGrid x:Name="dgJugadores" 
-                      AutoGenerateColumns="True" 
-                      IsReadOnly="True" 
-                      CanUserAddRows="False"
-                      HeadersVisibility="Column" 
-                      Background="White" 
-                      RowBackground="White"
-                      AlternatingRowBackground="#F9F9F9" 
-                      BorderBrush="#BDC3C7" 
-                      BorderThickness="1"
-                      FontSize="14"/>
+                      AutoGenerateColumns="True" IsReadOnly="True" CanUserAddRows="False"
+                      HeadersVisibility="Column" Background="White" RowBackground="White"
+                      AlternatingRowBackground="#F9F9F9" BorderBrush="#BDC3C7" BorderThickness="1" FontSize="14"/>
         </Border>
     </Grid>
 </Window>
