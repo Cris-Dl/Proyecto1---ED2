@@ -107,5 +107,28 @@ namespace MundialWPF
                 HeapifyDown(mayor);
             }
         }
+        public void Eliminar(string nombre)
+        {
+            int posicion = -1;
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                if (heap[i].Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase))
+                {
+                    posicion = i;
+                    break;
+                }
+            }
+            if (posicion == -1) return;
+            heap[posicion] = heap[cantidad - 1];
+            heap[cantidad - 1] = null;
+            cantidad--;
+            if (posicion < cantidad)
+            {
+                HeapifyUp(posicion);
+                HeapifyDown(posicion);
+            }
+        }
+
     }
 }

@@ -1,8 +1,10 @@
 ﻿<Window x:Class="Proyecto1_ED2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestión del Mundial - Estructura de Datos II" Height="600" Width="900" WindowStartupLocation="CenterScreen">
-
+        Title="Gestión del Mundial - Estructura de Datos II" Height="600" Width="900" 
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
@@ -17,10 +19,11 @@
                 <Button x:Name="btnCargarArchivo" Content="Cargar Datos (CSV)" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnCargarArchivo_Click"/>
                 <Button x:Name="btnRegistrar" Content="Registrar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnRegistrar_Click"/>
 
-                <TextBlock Text="Buscar por nombre:" Foreground="#BDC3C7" FontSize="12" Margin="0,0,0,5"/>
+                <TextBlock Text="Ingrese el nombre del jugador:" Foreground="#BDC3C7" FontSize="12" Margin="0,0,0,5"/>
                 <TextBox x:Name="txtBuscar" Height="30" Margin="0,0,0,10" Padding="5" FontSize="14"/>
                 <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>
-
+                <Button x:Name="btnEliminar" Content="Eliminar Jugador" Height="35" Margin="0,10,0,20" Background="#C0392B" Foreground="White" Click="btnEliminar_Click"/>
+                
                 <TextBlock Text="REPORTES" Foreground="#BDC3C7" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,10" />
 
                 <Button x:Name="btnTopGoles" Content="Top 5 Goleadores" Height="40" Margin="0,0,0,10" Background="#E67E22" Foreground="White" Click="btnTopGoles_Click"/>
@@ -30,7 +33,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Columna 1: Contenido principal (Tabla) -->
         <!-- Columna 1: Contenido principal (Tabla) -->
         <Border Grid.Column="1" Background="#ECF0F1" Padding="20">
             <DataGrid x:Name="dgJugadores" 

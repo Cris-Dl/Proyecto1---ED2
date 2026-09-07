@@ -184,5 +184,30 @@ namespace Proyecto1_ED2
                 }
             }
         }
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreBuscado = txtBuscar.Text.Trim();
+            if (string.IsNullOrEmpty(nombreBuscado))
+            {
+                MessageBox.Show("Escribe el nombre del jugador a eliminar en la caja de búsqueda.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            Jugador jugador = arbolJugadores.Buscar(nombreBuscado);
+            if (jugador != null)
+            {
+                arbolJugadores.Eliminar(nombreBuscado);
+                topGoleadores.Eliminar(nombreBuscado);
+                topAsistencias.Eliminar(nombreBuscado);
+                topMenosTarjetas.Eliminar(nombreBuscado);
+                dgJugadores.ItemsSource = arbolJugadores.ObtenerTodos();
+                txtBuscar.Clear();
+                ResaltarColumna("");
+                MessageBox.Show($"El jugador {nombreBuscado} ha sido eliminado del sistema.", "Eliminación Exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("No se encontró al jugador.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

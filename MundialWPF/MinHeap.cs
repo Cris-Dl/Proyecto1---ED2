@@ -99,5 +99,27 @@ namespace MundialWPF
             }
             return resultado;
         }
+     
+        public void Eliminar(string nombre)
+        {
+            int posicion = -1;
+            for (int i = 0; i < tamaño; i++)
+            {
+                if (arreglo[i].Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase))
+                {
+                    posicion = i;
+                    break;
+                }
+            }
+            if (posicion == -1) return;
+            arreglo[posicion] = arreglo[tamaño - 1];
+            arreglo[tamaño - 1] = null; 
+            tamaño--;
+            if (posicion < tamaño)
+            {
+                HundirHaciaArriba(posicion);
+                HundirHaciaAbajo(posicion);
+            }
+        }
     }
 }
