@@ -11,7 +11,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Menú Lateral -->
+        <!-- Columna 0: Menú lateral -->
         <Border Grid.Column="0" Background="#2C3E50" Padding="15">
             <StackPanel>
                 <TextBlock Text="MENÚ MUNDIAL" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30"/>
@@ -20,7 +20,7 @@
                 <Button x:Name="btnRegistrar" Content="Registrar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnRegistrar_Click"/>
                 <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>
 
-                <TextBlock Text="REPORTES" Foreground="#BDC3C7" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,10"/>
+                <TextBlock Text="REPORTES" Foreground="#BDC3C7" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,10" />
 
                 <Button x:Name="btnTopGoles" Content="Top 5 Goleadores" Height="40" Margin="0,0,0,10" Background="#E67E22" Foreground="White" Click="btnTopGoles_Click"/>
                 <Button x:Name="btnTopAsistencias" Content="Top 5 Asistencias" Height="40" Margin="0,0,0,10" Background="#E67E22" Foreground="White" Click="btnTopAsistencias_Click"/>
@@ -28,19 +28,19 @@
             </StackPanel>
         </Border>
 
-        <!-- Área de Contenido Central (Corregida) -->
+        <!-- Columna 1: Contenido principal (Tabla) -->
         <Border Grid.Column="1" Background="#ECF0F1" Padding="20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock x:Name="txtTituloSeccion" Grid.Row="0" Text="Tabla General de Jugadores" FontSize="24" FontWeight="Bold" Foreground="#2C3E50" Margin="0,0,0,15"/>
-
-                <!-- Tabla para mostrar los datos -->
-                <DataGrid x:Name="dgJugadores" Grid.Row="1" AutoGenerateColumns="True" IsReadOnly="True" HeadersVisibility="Column" Background="White" RowHeight="30" FontSize="14"/>
-            </Grid>
+            <DataGrid x:Name="dgJugadores" 
+                      AutoGenerateColumns="True" 
+                      IsReadOnly="True" 
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column" 
+                      Background="White" 
+                      RowBackground="White"
+                      AlternatingRowBackground="#F9F9F9" 
+                      BorderBrush="#BDC3C7" 
+                      BorderThickness="1"
+                      FontSize="14"/>
         </Border>
     </Grid>
 </Window>
