@@ -75,7 +75,29 @@ namespace Proyecto1_ED2
         }
 
         private void btnRegistrar_Click(object sender, RoutedEventArgs e) { }
-        private void btnBuscar_Click(object sender, RoutedEventArgs e) { }
+        
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreBuscado = txtBuscar.Text.Trim();
+            if (string.IsNullOrEmpty(nombreBuscado))
+            {
+                MessageBox.Show("Por favor, ingresa el nombre del jugador que deseas buscar.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            Jugador encontrado = arbolJugadores.Buscar(nombreBuscado);
+            if (encontrado != null)
+            {
+                dgJugadores.ItemsSource = new Jugador[] { encontrado };
+                MessageBox.Show($"¡Jugador encontrado!\n\nSelección: {encontrado.Seleccion}\nGoles: {encontrado.Goles}\nAsistencias: {encontrado.Asistencias}", 
+                                "Búsqueda Exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+                txtBuscar.Clear();
+            }
+            else
+            {
+                MessageBox.Show($"No se encontró ningún jugador con el nombre '{nombreBuscado}'.\nAsegúrate de escribirlo exactamente como está registrado.", 
+                                "Sin resultados", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void btnTopGoles_Click(object sender, RoutedEventArgs e) { }
         private void btnTopAsistencias_Click(object sender, RoutedEventArgs e) { }
     }

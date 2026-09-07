@@ -18,8 +18,10 @@
 
                 <Button x:Name="btnCargarArchivo" Content="Cargar Datos (CSV)" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnCargarArchivo_Click"/>
                 <Button x:Name="btnRegistrar" Content="Registrar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnRegistrar_Click"/>
-                <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>
-
+                <TextBlock Text="Buscar por nombre:" Foreground="#BDC3C7" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtBuscar" Height="30" Margin="0,0,0,10" Padding="5" FontSize="14"/>
+                <Button x:Name="btnBuscar" Content="Buscar Jugador" Height="40" Margin="0,0,0,10" Background="#34495E" Foreground="White" Click="btnBuscar_Click"/>    
+                
                 <TextBlock Text="REPORTES" Foreground="#BDC3C7" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,10" />
 
                 <Button x:Name="btnTopGoles" Content="Top 5 Goleadores" Height="40" Margin="0,0,0,10" Background="#E67E22" Foreground="White" Click="btnTopGoles_Click"/>

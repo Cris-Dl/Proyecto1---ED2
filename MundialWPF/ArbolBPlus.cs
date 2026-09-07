@@ -137,15 +137,27 @@ namespace MundialWPF
         private Jugador BuscarRecursivo(NodoBPlus nodo, string nombre)
         {
             int i = 0;
-            while (i < nodo.Cantidad && string.Compare(nombre, nodo.Claves[i], StringComparison.OrdinalIgnoreCase) > 0)
-                i++;
+
             if (nodo.EsHoja)
             {
+                while (i < nodo.Cantidad && string.Compare(nombre, nodo.Claves[i], StringComparison.OrdinalIgnoreCase) > 0)
+                {
+                    i++;
+                }
                 if (i < nodo.Cantidad && nodo.Claves[i].Equals(nombre, StringComparison.OrdinalIgnoreCase))
+                {
                     return nodo.Valores[i];
+                }
                 return null;
             }
-            return BuscarRecursivo(nodo.Hijos[i], nombre);
+            else
+            {
+                while (i < nodo.Cantidad && string.Compare(nombre, nodo.Claves[i], StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    i++;
+                }
+                return BuscarRecursivo(nodo.Hijos[i], nombre);
+            }
         }
 
         public Jugador[] ObtenerTodos()
