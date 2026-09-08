@@ -2,7 +2,7 @@
 
 namespace MundialWPF
 {
-    public class NodoBPlus
+    public class NodoBPlus //Clase que representa un nodo en el árbol B+
     {
         public string[] Claves;
         public Jugador[]? Valores;
@@ -12,7 +12,7 @@ namespace MundialWPF
         public int Cantidad;
         public bool EsHoja;
 
-        public NodoBPlus(int orden, bool esHoja)
+        public NodoBPlus(int orden, bool esHoja) //Constructor que inicializa un nodo con el orden especificado y si es hoja o no
         {
             EsHoja = esHoja;
             Cantidad = 0;
@@ -22,18 +22,18 @@ namespace MundialWPF
         }
     }
 
-    public class ArbolBPlus
+    public class ArbolBPlus //Clase que representa el árbol B+
     {
-        private NodoBPlus raiz;
+        private NodoBPlus raiz; 
         private int orden;
 
-        public ArbolBPlus(int orden)
+        public ArbolBPlus(int orden) //Constructor que inicializa el árbol con el orden especificado
         {
             this.orden = orden;
             raiz = new NodoBPlus(orden, true);
         }
 
-        public Jugador Buscar(string nombre)
+        public Jugador Buscar(string nombre) //Método que busca un jugador por su nombre en el árbol B+
         {
             NodoBPlus hoja = BuscarHoja(nombre);
             for (int i = 0; i < hoja.Cantidad; i++)
@@ -44,7 +44,7 @@ namespace MundialWPF
             return null;
         }
 
-        private NodoBPlus BuscarHoja(string clave)
+        private NodoBPlus BuscarHoja(string clave) //Método que busca la hoja donde debería estar la clave especificada
         {
             NodoBPlus actual = raiz;
             while (!actual.EsHoja)
@@ -59,7 +59,7 @@ namespace MundialWPF
             return actual;
         }
 
-        public Jugador[] ObtenerTodos()
+        public Jugador[] ObtenerTodos() //Método que obtiene todos los jugadores en el árbol B+
         {
             NodoBPlus actual = raiz;
             while (!actual.EsHoja)
@@ -86,7 +86,7 @@ namespace MundialWPF
             return todos;
         }
 
-        public void Insertar(Jugador jugador)
+        public void Insertar(Jugador jugador) //Método que inserta un jugador en el árbol B+
         {
             string clave = jugador.Nombre;
             NodoBPlus hoja = BuscarHoja(clave);
@@ -109,7 +109,7 @@ namespace MundialWPF
             }
         }
 
-        private void DividirHoja(NodoBPlus hoja)
+        private void DividirHoja(NodoBPlus hoja) //Método que divide una hoja cuando está llena
         {
             int mitad = hoja.Cantidad / 2;
             NodoBPlus nuevaHoja = new NodoBPlus(orden, true);
@@ -130,7 +130,7 @@ namespace MundialWPF
             InsertarEnPadre(hoja, nuevaHoja.Claves[0], nuevaHoja);
         }
 
-        private void InsertarEnPadre(NodoBPlus izquierdo, string claveGuia, NodoBPlus derecho)
+        private void InsertarEnPadre(NodoBPlus izquierdo, string claveGuia, NodoBPlus derecho) //Método que inserta una clave guía en el nodo padre después de dividir un nodo
         {
             if (izquierdo == raiz)
             {
@@ -165,7 +165,7 @@ namespace MundialWPF
             }
         }
 
-        private void DividirInterno(NodoBPlus interno)
+        private void DividirInterno(NodoBPlus interno) //Método que divide un nodo interno cuando está lleno
         {
             int mitad = interno.Cantidad / 2;
             NodoBPlus nuevoInterno = new NodoBPlus(orden, false);
@@ -195,7 +195,7 @@ namespace MundialWPF
             InsertarEnPadre(interno, claveSube, nuevoInterno);
         }
 
-        public bool Eliminar(string clave)
+        public bool Eliminar(string clave) //Método que elimina un jugador por su nombre en el árbol B+
         {
             NodoBPlus hoja = BuscarHoja(clave);
             int pos = 0;
@@ -223,7 +223,7 @@ namespace MundialWPF
             return true;
         }
 
-        private void RepararHoja(NodoBPlus hoja)
+        private void RepararHoja(NodoBPlus hoja) //Método que repara una hoja que tiene menos claves de las mínimas requeridas
         {
             NodoBPlus padre = hoja.Padre;
             if (padre == null) return;
@@ -295,7 +295,7 @@ namespace MundialWPF
             }
         }
 
-        private void RecalcularGuias(NodoBPlus nodo)
+        private void RecalcularGuias(NodoBPlus nodo) //Método que recalcula las claves guía en los nodos internos después de una eliminación
         {
             if (nodo.EsHoja) return;
             for (int i = 0; i <= nodo.Cantidad; i++)
@@ -309,7 +309,7 @@ namespace MundialWPF
             }
         }
 
-        private string MinimoSubarbol(NodoBPlus nodo)
+        private string MinimoSubarbol(NodoBPlus nodo) //Método que obtiene la clave mínima de un subárbol
         {
             while (!nodo.EsHoja) nodo = nodo.Hijos[0];
             return nodo.Claves[0];

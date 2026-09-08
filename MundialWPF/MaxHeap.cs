@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MundialWPF
+namespace MundialWPF 
 {
-    public class MaxHeap
+    public class MaxHeap //Clase MaxHeap para manejar la estructura de datos de heap máximo
     {
         private Jugador[] heap;
         private int cantidad;
@@ -14,7 +14,7 @@ namespace MundialWPF
             this.criterio = criterio;
         }
 
-        private void Redimensionar()
+        private void Redimensionar() //Método para redimensionar el arreglo del heap cuando se llena
         {
             Jugador[] nuevoHeap = new Jugador[heap.Length * 2];
             for (int i = 0; i < cantidad; i++)
@@ -24,7 +24,7 @@ namespace MundialWPF
             heap = nuevoHeap;
         }
 
-        public void Insertar(Jugador jugador)
+        public void Insertar(Jugador jugador) //Método para insertar un jugador en el heap
         {
             if (cantidad == heap.Length)
             {
@@ -35,7 +35,7 @@ namespace MundialWPF
             cantidad++;
         }
 
-        private void HeapifyUp(int index)
+        private void HeapifyUp(int index) //Método para mantener la propiedad del heap después de insertar un nuevo elemento
         {
             int padre = (index - 1) / 2;
             while (index > 0 && Comparar(heap[index], heap[padre]) > 0)
@@ -49,7 +49,7 @@ namespace MundialWPF
             }
         }
 
-        private int Comparar(Jugador j1, Jugador j2)
+        private int Comparar(Jugador j1, Jugador j2) //Método para comparar dos jugadores según el criterio de ordenamiento
         {
             if (criterio == "Goles")
             {
@@ -62,7 +62,7 @@ namespace MundialWPF
             return 0;
         }
 
-        public Jugador[] ObtenerTop(int topN)
+        public Jugador[] ObtenerTop(int topN) //Método para obtener los N mejores jugadores según el criterio de ordenamiento
         {
             int limite = Math.Min(topN, cantidad);
             Jugador[] top = new Jugador[limite];
@@ -79,7 +79,7 @@ namespace MundialWPF
             return top;
         }
 
-        public Jugador ExtraerMax()
+        public Jugador ExtraerMax() //Método para extraer el jugador con el valor máximo según el criterio de ordenamiento
         {
             if (cantidad == 0) return null;
             Jugador max = heap[0];
@@ -90,7 +90,7 @@ namespace MundialWPF
             return max;
         }
 
-        private void HeapifyDown(int index)
+        private void HeapifyDown(int index) //Método para mantener la propiedad del heap después de extraer el elemento máximo
         {
             int mayor = index;
             int izquierdo = 2 * index + 1;
@@ -107,7 +107,7 @@ namespace MundialWPF
                 HeapifyDown(mayor);
             }
         }
-        public void Eliminar(string nombre)
+        public void Eliminar(string nombre) //Método para eliminar un jugador del heap por su nombre
         {
             int posicion = -1;
 

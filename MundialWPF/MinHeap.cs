@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace MundialWPF
+namespace MundialWPF 
 {
-    public class MinHeap
+    public class MinHeap //Clase MinHeap para manejar la estructura de datos de heap mínimo
     {
         private Jugador[] arreglo;
         private int capacidad;
         private int tamaño;
         private string criterio;
 
-        public MinHeap(string criterio, int capacidad = 100)
+        public MinHeap(string criterio, int capacidad = 100) //Constructor que inicializa el heap con un criterio de ordenamiento y una capacidad máxima
         {
             this.criterio = criterio;
             this.capacidad = capacidad;
@@ -24,7 +24,7 @@ namespace MundialWPF
             return 0;
         }
 
-        public void Insertar(Jugador jugador)
+        public void Insertar(Jugador jugador) //Método para insertar un jugador en el heap
         {
             if (tamaño == capacidad) return;
             arreglo[tamaño] = jugador;
@@ -32,7 +32,7 @@ namespace MundialWPF
             tamaño++;
         }
 
-        private void HundirHaciaArriba(int indice)
+        private void HundirHaciaArriba(int indice) //Método para mantener la propiedad del heap después de insertar un nuevo elemento
         {
             int indicePadre = (indice - 1) / 2;
             while (indice > 0 && ObtenerValor(arreglo[indice]) < ObtenerValor(arreglo[indicePadre]))
@@ -45,7 +45,7 @@ namespace MundialWPF
             }
         }
 
-        public Jugador ExtraerMinimo()
+        public Jugador ExtraerMinimo() //Método para extraer el jugador con el valor mínimo según el criterio de ordenamiento
         {
             if (tamaño <= 0) return null;
             if (tamaño == 1)
@@ -60,7 +60,7 @@ namespace MundialWPF
             return raiz;
         }
 
-        private void HundirHaciaAbajo(int indice)
+        private void HundirHaciaAbajo(int indice) //Método para mantener la propiedad del heap después de extraer el elemento mínimo
         {
             int indiceMenor = indice;
             int hijoIzquierdo = 2 * indice + 1;
@@ -82,7 +82,7 @@ namespace MundialWPF
             }
         }
 
-        public Jugador[] ObtenerTop(int cantidad)
+        public Jugador[] ObtenerTop(int cantidad) //Método para obtener los jugadores con los valores más bajos según el criterio de ordenamiento
         {
             if (tamaño == 0) return new Jugador[0];
             int numElementos = Math.Min(cantidad, tamaño);
@@ -100,7 +100,7 @@ namespace MundialWPF
             return resultado;
         }
      
-        public void Eliminar(string nombre)
+        public void Eliminar(string nombre) //Método para eliminar un jugador del heap por su nombre
         {
             int posicion = -1;
             for (int i = 0; i < tamaño; i++)
